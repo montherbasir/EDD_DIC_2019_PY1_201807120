@@ -4,8 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/Lista.cpp" "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/cmake-build-debug/CMakeFiles/untitled.dir/Lista.cpp.o"
-  "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/main.cpp" "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/cmake-build-debug/CMakeFiles/untitled.dir/main.cpp.o"
+  "/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/main.cpp" "/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug/CMakeFiles/untitled.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

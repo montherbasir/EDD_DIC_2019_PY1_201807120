@@ -9,7 +9,7 @@ template<class T>
 class Lista {
     class Nodo{
         public:
-            Nodo(T x)
+            explicit Nodo(T x)
             {
                 next = 0;
                 dato = x;
@@ -44,4 +44,93 @@ class Lista {
 };
 
 
+template<class T>
+void Lista<T>::add_first(T dato)
+{
+    Nodo *n = new Nodo(dato);
+    if(this->isEmpty())
+    {
+        this->first = n;
+        this->last = n;
+        this->size++;
+    }
+    else
+    {
+        n->setNext(this->first);
+        this->first = n;
+        this->size++;
+    }
+}
+
+template<class T>
+void Lista<T>::add_last(T dato)
+{
+    if(this->isEmpty())
+    {
+        this->add_first(dato);
+    }
+    else
+    {
+        Nodo *n = new Nodo(dato);
+        this->last->setNext(n);
+        this->last = n;
+        this->size++;
+    }
+}
+
+template<class T>
+T Lista<T>::get_element_at(int index)
+{
+    if(index >= 0 && index < size)
+    {
+        Nodo *iterador = this->first;
+        int x = 0;
+        while(iterador!=0)
+        {
+            if(index == x){return iterador->getDato();}
+            iterador = iterador->getNext();
+            x++;
+        }
+    }
+    return 0;
+}
+
+template<class T>
+void Lista<T>::remove_at(int index)
+{
+    if(index >= 0 && index < this->size)
+    {
+
+        if(index == 0)
+        {
+            if(this->size==1){
+                delete this->first;
+            }else{
+                Nodo *aux = this->first->getNext();
+                delete this->first;
+                this->first=aux;
+            }
+        }
+        else
+        {
+            Nodo *aux = this->first;
+            int i = 0;
+            while(aux!=0)
+            {
+                if(i == index-1){break;}
+                aux = aux->getNext();
+                i++;
+            }
+            if(aux->getNext()==last){
+                delete aux->getNext();
+                aux->setNext(0);
+                last=aux;
+            }else{
+                aux->setNext(aux->getNext()->getNext());
+                delete aux->getNext();
+            }
+        }
+        this->size--;
+    }
+}
 #endif //UNTITLED_LISTA_H

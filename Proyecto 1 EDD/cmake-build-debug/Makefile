@@ -48,10 +48,10 @@ RM = /cygdrive/c/Users/Monther/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -E
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD"
+CMAKE_SOURCE_DIR = "/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/cmake-build-debug"
+CMAKE_BINARY_DIR = "/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/cmake-build-debug/CMakeFiles" "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug/CMakeFiles" "/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/Monther/CLionProjects/Proyecto 1 EDD/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -123,33 +123,6 @@ untitled/fast:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
-Lista.o: Lista.cpp.o
-
-.PHONY : Lista.o
-
-# target to build an object file
-Lista.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Lista.cpp.o
-.PHONY : Lista.cpp.o
-
-Lista.i: Lista.cpp.i
-
-.PHONY : Lista.i
-
-# target to preprocess a source file
-Lista.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Lista.cpp.i
-.PHONY : Lista.cpp.i
-
-Lista.s: Lista.cpp.s
-
-.PHONY : Lista.s
-
-# target to generate assembly for a file
-Lista.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Lista.cpp.s
-.PHONY : Lista.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -186,9 +159,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... untitled"
 	@echo "... edit_cache"
-	@echo "... Lista.o"
-	@echo "... Lista.i"
-	@echo "... Lista.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
