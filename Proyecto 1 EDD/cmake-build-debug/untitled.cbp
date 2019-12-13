@@ -29,7 +29,7 @@
 			</Target>
 			<Target title="untitled">
 				<Option output="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug/untitled.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug"/>
+				<Option working_dir=""/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -50,7 +50,7 @@
 			</Target>
 			<Target title="untitled/fast">
 				<Option output="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug/untitled.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/cmake-build-debug"/>
+				<Option working_dir=""/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -80,10 +80,31 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.cpp">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.cpp">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.cpp">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.h">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cola.h">
 			<Option target="untitled"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Lista.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Matriz.h">
 			<Option target="untitled"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Pila.h">

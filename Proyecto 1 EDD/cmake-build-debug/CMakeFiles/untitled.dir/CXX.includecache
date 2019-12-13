@@ -1,0 +1,68 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.h
+string
+-
+utility
+-
+Lista.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Lista.h
+Cancion.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.h
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.cpp
+Artista.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.h
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.h
+string
+-
+Album.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.h
+Matriz.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Matriz.h
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.h
+string
+-
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cola.h
+Lista.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Lista.h
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Lista.h
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Matriz.h
+string
+-
+stdio.h
+-
+string.h
+-
+iostream
+-
+Album.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.h
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/main.cpp
+iostream
+-
+json/json.h
+-
+memory
+-
+fstream
+-
+Cola.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cola.h
+Matriz.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Matriz.h
+Album.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.h
+

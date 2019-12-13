@@ -1,7 +1,14 @@
 # cmake_minimum_required(VERSION <specify CMake version here>)
-set(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
+cmake_minimum_required(VERSION 3.15)
+#set(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
 project(untitled)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(untitled main.cpp Lista.h Pila.h Cola.h)
+
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(JSONCPP jsoncpp)
+link_libraries(${JSONCPP_LIBRARIES})
+add_executable(untitled main.cpp Lista.h Pila.h Cola.h Matriz.h Album.cpp Album.h Cancion.cpp Cancion.h Artista.cpp Artista.h)
+target_link_libraries(untitled ${JSONCPP_LIBRARIES})
