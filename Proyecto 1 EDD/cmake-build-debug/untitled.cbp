@@ -80,34 +80,37 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.cpp">
-			<Option target="untitled"/>
-		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.h">
-			<Option target="untitled"/>
-		</Unit>
-		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.cpp">
 			<Option target="untitled"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.h">
 			<Option target="untitled"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.cpp">
-			<Option target="untitled"/>
-		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.h">
 			<Option target="untitled"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cola.h">
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Cola.h">
 			<Option target="untitled"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Lista.h">
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Lista.h">
 			<Option target="untitled"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Matriz.h">
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/ListaDoble.h">
 			<Option target="untitled"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Pila.h">
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Matriz.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Pila.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistQueue.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistShuffle.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistStack.h">
 			<Option target="untitled"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/main.cpp">

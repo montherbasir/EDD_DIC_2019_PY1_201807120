@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <utility>
 
 class Cancion {
 private:
@@ -14,31 +15,31 @@ private:
     std::string file;
     double rating;
 public:
-    Cancion(const std::string &nombre, const std::string &file, double rating) : nombre(nombre), file(file),
+    Cancion(std::string nombre, std::string file, double rating) : nombre(std::move(nombre)), file(std::move(file)),
                                                                                  rating(rating) {}
 
     const std::string &getNombre() const {
         return nombre;
     }
 
-    void setNombre(const std::string &nombre) {
-        Cancion::nombre = nombre;
+    void setNombre(const std::string &nombre_) {
+        Cancion::nombre = nombre_;
     }
 
     const std::string &getFile() const {
         return file;
     }
 
-    void setFile(const std::string &file) {
-        Cancion::file = file;
+    void setFile(const std::string &file_) {
+        Cancion::file = file_;
     }
 
     double getRating() const {
         return rating;
     }
 
-    void setRating(double rating) {
-        Cancion::rating = rating;
+    void setRating(double rating_) {
+        Cancion::rating = rating_;
     }
 };
 

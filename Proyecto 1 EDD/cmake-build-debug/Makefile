@@ -123,87 +123,6 @@ untitled/fast:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
-Album.o: Album.cpp.o
-
-.PHONY : Album.o
-
-# target to build an object file
-Album.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Album.cpp.o
-.PHONY : Album.cpp.o
-
-Album.i: Album.cpp.i
-
-.PHONY : Album.i
-
-# target to preprocess a source file
-Album.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Album.cpp.i
-.PHONY : Album.cpp.i
-
-Album.s: Album.cpp.s
-
-.PHONY : Album.s
-
-# target to generate assembly for a file
-Album.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Album.cpp.s
-.PHONY : Album.cpp.s
-
-Artista.o: Artista.cpp.o
-
-.PHONY : Artista.o
-
-# target to build an object file
-Artista.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Artista.cpp.o
-.PHONY : Artista.cpp.o
-
-Artista.i: Artista.cpp.i
-
-.PHONY : Artista.i
-
-# target to preprocess a source file
-Artista.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Artista.cpp.i
-.PHONY : Artista.cpp.i
-
-Artista.s: Artista.cpp.s
-
-.PHONY : Artista.s
-
-# target to generate assembly for a file
-Artista.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Artista.cpp.s
-.PHONY : Artista.cpp.s
-
-Cancion.o: Cancion.cpp.o
-
-.PHONY : Cancion.o
-
-# target to build an object file
-Cancion.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Cancion.cpp.o
-.PHONY : Cancion.cpp.o
-
-Cancion.i: Cancion.cpp.i
-
-.PHONY : Cancion.i
-
-# target to preprocess a source file
-Cancion.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Cancion.cpp.i
-.PHONY : Cancion.cpp.i
-
-Cancion.s: Cancion.cpp.s
-
-.PHONY : Cancion.s
-
-# target to generate assembly for a file
-Cancion.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Cancion.cpp.s
-.PHONY : Cancion.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -240,15 +159,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... untitled"
 	@echo "... edit_cache"
-	@echo "... Album.o"
-	@echo "... Album.i"
-	@echo "... Album.s"
-	@echo "... Artista.o"
-	@echo "... Artista.i"
-	@echo "... Artista.s"
-	@echo "... Cancion.o"
-	@echo "... Cancion.i"
-	@echo "... Cancion.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

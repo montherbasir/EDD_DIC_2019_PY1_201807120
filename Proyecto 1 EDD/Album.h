@@ -8,7 +8,7 @@
 
 #include <string>
 #include <utility>
-#include "Lista.h"
+#include "EDD/Lista.h"
 #include "Cancion.h"
 
 class Album {
@@ -16,9 +16,18 @@ private:
     std::string nombre;
     std::string mes;
     int anio;
-    Lista<Cancion>* canciones;
+    double rating{};
+    Lista<Cancion*>* canciones;
 public:
-    Album(std::string nombre, std::string mes, int anio, Lista<Cancion> *canciones) : nombre(std::move(nombre)),
+    double getRating() const {
+        return rating;
+    }
+
+    void setRating(double rating_) {
+        Album::rating = rating_;
+    }
+
+    Album(std::string nombre, std::string mes, int anio, Lista<Cancion*> *canciones) : nombre(std::move(nombre)),
                                                                                                    mes(std::move(mes)), anio(anio),
                                                                                                    canciones(
                                                                                                            canciones) {}
@@ -28,32 +37,32 @@ public:
         return nombre;
     }
 
-    void setNombre(const std::string &nombre) {
-        Album::nombre = nombre;
+    void setNombre(const std::string &nombre_) {
+        Album::nombre = nombre_;
     }
 
     const std::string &getMes() const {
         return mes;
     }
 
-    void setMes(const std::string &mes) {
-        Album::mes = mes;
+    void setMes(const std::string &mes_) {
+        Album::mes = mes_;
     }
 
     int getAnio() const {
         return anio;
     }
 
-    void setAnio(int anio) {
-        Album::anio = anio;
+    void setAnio(int anio_) {
+        Album::anio = anio_;
     }
 
-    Lista <Cancion> *getCanciones() const {
+    Lista <Cancion*> *getCanciones() const {
         return canciones;
     }
 
-    void setCanciones(Lista <Cancion> *canciones) {
-        Album::canciones = canciones;
+    void setCanciones(Lista <Cancion*> *canciones_) {
+        Album::canciones = canciones_;
     }
 };
 

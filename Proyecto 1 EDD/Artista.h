@@ -7,22 +7,31 @@
 
 
 #include <string>
+#include <utility>
 #include "Album.h"
-#include "Matriz.h"
+#include "EDD/Matriz.h"
 
 class Artista {
 private:
     std::string nombre;
     Matriz<Album>* albumes;
 public:
-    Artista(const string &nombre, Matriz<Album> *albumes) : nombre(nombre), albumes(albumes) {}
+    Artista(string nombre, Matriz<Album> *albumes) : nombre(std::move(nombre)), albumes(albumes) {}
 
-    void setNombre(const string &nombre) {
-        Artista::nombre = nombre;
+    const string &getNombre() const {
+        return nombre;
     }
 
-    void setAlbumes(Matriz<Album> *albumes) {
-        Artista::albumes = albumes;
+    Matriz<Album> *getAlbumes() const {
+        return albumes;
+    }
+
+    void setNombre(const string &nombre_) {
+        Artista::nombre = nombre_;
+    }
+
+    void setAlbumes(Matriz<Album> *albumes_) {
+        Artista::albumes = albumes_;
     }
 };
 

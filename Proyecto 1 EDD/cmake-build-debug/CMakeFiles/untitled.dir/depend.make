@@ -4,22 +4,24 @@
 CMakeFiles/untitled.dir/Album.cpp.o: ../Album.cpp
 CMakeFiles/untitled.dir/Album.cpp.o: ../Album.h
 CMakeFiles/untitled.dir/Album.cpp.o: ../Cancion.h
-CMakeFiles/untitled.dir/Album.cpp.o: ../Lista.h
+CMakeFiles/untitled.dir/Album.cpp.o: ../EDD/Lista.h
 
 CMakeFiles/untitled.dir/Artista.cpp.o: ../Album.h
 CMakeFiles/untitled.dir/Artista.cpp.o: ../Artista.cpp
 CMakeFiles/untitled.dir/Artista.cpp.o: ../Artista.h
 CMakeFiles/untitled.dir/Artista.cpp.o: ../Cancion.h
-CMakeFiles/untitled.dir/Artista.cpp.o: ../Lista.h
-CMakeFiles/untitled.dir/Artista.cpp.o: ../Matriz.h
+CMakeFiles/untitled.dir/Artista.cpp.o: ../EDD/Lista.h
+CMakeFiles/untitled.dir/Artista.cpp.o: ../EDD/Matriz.h
 
 CMakeFiles/untitled.dir/Cancion.cpp.o: ../Cancion.cpp
 CMakeFiles/untitled.dir/Cancion.cpp.o: ../Cancion.h
 
 CMakeFiles/untitled.dir/main.cpp.o: ../Album.h
+CMakeFiles/untitled.dir/main.cpp.o: ../Artista.h
 CMakeFiles/untitled.dir/main.cpp.o: ../Cancion.h
-CMakeFiles/untitled.dir/main.cpp.o: ../Cola.h
-CMakeFiles/untitled.dir/main.cpp.o: ../Lista.h
-CMakeFiles/untitled.dir/main.cpp.o: ../Matriz.h
+CMakeFiles/untitled.dir/main.cpp.o: ../EDD/Cola.h
+CMakeFiles/untitled.dir/main.cpp.o: ../EDD/Lista.h
+CMakeFiles/untitled.dir/main.cpp.o: ../EDD/ListaDoble.h
+CMakeFiles/untitled.dir/main.cpp.o: ../EDD/Matriz.h
 CMakeFiles/untitled.dir/main.cpp.o: ../main.cpp
 
