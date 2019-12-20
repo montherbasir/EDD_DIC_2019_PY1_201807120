@@ -18,6 +18,7 @@ private:
     int anio;
     double rating{};
     Lista<Cancion*>* canciones;
+    int nom;
 public:
     double getRating() const {
         return rating;
@@ -25,6 +26,14 @@ public:
 
     void setRating(double rating_) {
         Album::rating = rating_;
+    }
+
+    int getNom() const {
+        return nom;
+    }
+
+    void setNom(int nom) {
+        Album::nom = nom;
     }
 
     Album(std::string nombre, std::string mes, int anio, Lista<Cancion*> *canciones) : nombre(std::move(nombre)),
@@ -57,7 +66,7 @@ public:
         Album::anio = anio_;
     }
 
-    Lista <Cancion*> *getCanciones() const {
+    Lista <Cancion*> *getCanciones() {
         return canciones;
     }
 

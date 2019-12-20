@@ -1,0 +1,8 @@
+digraph {
+splines="line";
+rankdir = LR;
+node [shape=rectangle, height=0.5, width=1.5];
+graph[nodesep = 0.35, dpi=300];
+
+node0 [label="Young and Aspiring", fillcolor=greenyellow, style=filled];
+}

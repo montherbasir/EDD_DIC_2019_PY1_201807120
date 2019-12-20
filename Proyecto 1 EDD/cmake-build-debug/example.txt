@@ -1,0 +1,58 @@
+digraph {
+splines="line";
+rankdir = TB;
+node [shape=rectangle, height=0.5, width=1.5];
+graph[nodesep = 0.35];
+
+nodeY_MontherBasir [label="Monther Basir"];
+nodeY_2019 [label="2019"];
+nodeY_2020 [label="2020"];
+nodeY_2023 [label="2023"];
+
+nodeM_enero [label="enero"];
+nodeM_Septiembre [label="Septiembre"];
+nodeM_diciembre [label="diciembre"];
+
+nodeV_enero2019 [label="uno"];
+nodeV_enero2020 [label="dos"];
+nodeV_Septiembre2020 [label="tres"];
+nodeV_diciembre2023 [label="cuatro"];
+
+nodeY_MontherBasir -> nodeY_2019;
+nodeY_2019 -> nodeY_MontherBasir;
+nodeY_2019 -> nodeY_2020;
+nodeY_2020 -> nodeY_2019;
+nodeY_2020 -> nodeY_2023;
+nodeY_2023 -> nodeY_2020;
+
+nodeY_2019 -> nodeV_enero2019;
+nodeV_enero2019 -> nodeY_2019;
+nodeY_2020 -> nodeV_enero2020;
+nodeV_enero2020 -> nodeY_2020;
+nodeV_enero2020 -> nodeV_Septiembre2020;
+nodeV_Septiembre2020 -> nodeV_enero2020;
+nodeY_2023 -> nodeV_diciembre2023;
+nodeV_diciembre2023 -> nodeY_2023;
+
+nodeY_MontherBasir -> nodeM_enero;
+nodeM_enero -> nodeY_MontherBasir;
+nodeM_enero -> nodeM_Septiembre;
+nodeM_Septiembre -> nodeM_enero;
+nodeM_Septiembre -> nodeM_diciembre;
+nodeM_diciembre -> nodeM_Septiembre;
+
+nodeM_enero -> nodeV_enero2019[constraint=false];
+nodeV_enero2019 -> nodeM_enero[constraint=false];
+nodeV_enero2019 -> nodeV_enero2020[constraint=false];
+nodeV_enero2020 -> nodeV_enero2019[constraint=false];
+nodeM_Septiembre -> nodeV_Septiembre2020[constraint=false];
+nodeV_Septiembre2020 -> nodeM_Septiembre[constraint=false];
+nodeM_diciembre -> nodeV_diciembre2023[constraint=false];
+nodeV_diciembre2023 -> nodeM_diciembre[constraint=false];
+
+{rank=same; nodeY_MontherBasir; nodeY_2019; nodeY_2020; nodeY_2023; }
+{rank=same; nodeM_enero; nodeV_enero2019; nodeV_enero2020; }
+{rank=same; nodeM_Septiembre; nodeV_Septiembre2020; }
+{rank=same; nodeM_diciembre; nodeV_diciembre2023; }
+
+}

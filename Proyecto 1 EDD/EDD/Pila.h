@@ -11,6 +11,7 @@ class Pila{
 public:
     void push(T dato);
     T pop();
+    T peek();
     int getSize(){return this->lista->getSize();}
     Pila(){
         this->lista = new Lista<T>();
@@ -32,5 +33,13 @@ T Pila<T>::pop()
     this->lista->remove_at(0);
     return dato;
 }
+
+template<class T>
+T Pila<T>::peek()
+{
+    T dato = this->lista->get_element_at(0);
+    return dato;
+}
+
 
 #endif //UNTITLED_PILA_H

@@ -89,6 +89,9 @@
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.h">
 			<Option target="untitled"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Arbol.h">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Cola.h">
 			<Option target="untitled"/>
 		</Unit>
@@ -98,10 +101,19 @@
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/ListaDoble.h">
 			<Option target="untitled"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/ListaDobleCircular.h">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Matriz.h">
 			<Option target="untitled"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Pila.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Playlist.h">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistCircular.h">
 			<Option target="untitled"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistQueue.h">

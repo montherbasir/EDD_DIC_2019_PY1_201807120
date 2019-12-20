@@ -1,55 +1,47 @@
 //
-// Created by Monther on 15/12/2019.
+// Created by Monther on 17/12/2019.
 //
 
-#ifndef UNTITLED_PLAYLISTSHUFFLE_H
-#define UNTITLED_PLAYLISTSHUFFLE_H
+#ifndef UNTITLED_PLAYLISTCIRCULAR_H
+#define UNTITLED_PLAYLISTCIRCULAR_H
 
 #include <string>
 #include <utility>
-#include <iostream>
 #include "Cancion.h"
-#include "EDD/ListaDoble.h"
+#include "EDD/ListaDobleCircular.h"
+#include "Playlist.h"
 
-class PlaylistShuffle: public Playlist{
+class PlaylistCircular: public Playlist{
 private:
-    std::string name;
-    std::string type;
-    ListaDoble<Cancion*>* canciones;
+    ListaDobleCircular<Cancion*> *canciones;
+
 public:
-    PlaylistShuffle(std::string name, std::string type) : Playlist(std::move(name),std::move(type))
-    {
-        canciones = new ListaDoble<Cancion*>();
+    PlaylistCircular(std::string name, std::string type) : Playlist(std::move(name),std::move(type)){
+        canciones = new ListaDobleCircular<Cancion*>();
     }
 
-    ListaDoble<Cancion *> *getCanciones() const {
+    ListaDobleCircular<Cancion *> *getCanciones() const {
         return canciones;
     }
 
-    void setCanciones(ListaDoble<Cancion *> *canciones_) {
-        PlaylistShuffle::canciones = canciones_;
+    void setCanciones(ListaDobleCircular<Cancion *> *canciones_) {
+        PlaylistCircular::canciones = canciones_;
     }
 
-    void addCancion(Cancion* cancion_) override{
-        if(canciones->getSize()==0){
-            canciones->add_first(cancion_);
-        }else{
-            int x = (rand() % canciones->getSize()+1) ;
-            std::cout<<x;
-            canciones->add_at(cancion_, x);
-        }
+    void addCancion(Cancion* cancion_) {
+        canciones->add_last(cancion_);
     }
 
     void reproducir() override{
 //        while(canciones->getSize()!=0){
-            generarGraph(canciones);
+        generarGraph(canciones);
 
-            Sleep(2000);
+        Sleep(2000);
 //        }
 
     }
 
-    void generarGraph(ListaDoble<Cancion*>* lista){
+    void generarGraph(ListaDobleCircular<Cancion*>* lista){
         cout << "Hola " <<endl;
         string graph = "digraph {\n"
                        "splines=\"line\";\n"
@@ -85,4 +77,4 @@ public:
     }
 
 };
-#endif //UNTITLED_PLAYLISTSHUFFLE_H
+#endif //UNTITLED_PLAYLISTCIRCULAR_H

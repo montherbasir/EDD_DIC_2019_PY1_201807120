@@ -33,6 +33,16 @@ public:
     void setAlbumes(Matriz<Album> *albumes_) {
         Artista::albumes = albumes_;
     }
+
+    void imprimirAlbumes(){
+        albumes->imprimirAlbumes();
+    }
+
+    Album buscarAlbum(const string& nombre){
+        return albumes->buscarAlbum(nombre);
+    }
+
+
 };
 
 

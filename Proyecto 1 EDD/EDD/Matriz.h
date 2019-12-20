@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include <algorithm>
 #include "../Album.h"
 using namespace std;
 
@@ -16,7 +17,7 @@ template <class T>
 class Nodo{
 public:
 
-    Nodo(T *dato) : dato(*dato) {left = 0;
+    explicit Nodo(T *dato) : dato(*dato) {left = 0;
         right = 0;
         up = 0;
         down = 0;
@@ -36,7 +37,6 @@ public:
     void setDown(Nodo *n) { down = n;}
     void setFront(Nodo *n) { front = n;}
     void setBack(Nodo *n) { back = n;}
-
     T getDato(){ return dato;}
 
 private:
@@ -55,9 +55,9 @@ class Matriz {
 
 public:
 
-    Matriz(const string& artista)
+    explicit Matriz(const string& artista)
     {
-        Album *al = new Album(artista,"",-1, nullptr);
+        auto *al = new Album(artista,"",-1, nullptr);
         root = new Nodo<Album>(al);
     }
 
@@ -68,13 +68,18 @@ public:
     void imprimirCol();
     void imprimirFilas();
     void insertar(Album *album);
+    string generarStringGraph();
+    void imprimirAlbumes();
+    Album buscarAlbum(const string& nombre);
+    ListaDoble<Cancion*> *getAllCanciones();
 private:
-    Nodo<T> *root;
+    Nodo<Album> *root;
     bool iequals(const string& a, const string& b);
     int getNoMes(const string& a);
     Nodo<Album> *insertarEnFila(Nodo<Album>* h_fila, Nodo<Album>* nodo);
     Nodo<Album> * insertarEnColumna(Nodo<Album>* h_col, Nodo<Album>* nodo);
     void imprimirNodo(Nodo<Album>* nodo);
+
 };
 
 template <class T>
@@ -136,8 +141,8 @@ Nodo<T>* Matriz<T>::insertarFila(const string &nombre){
         return aux;
     }
 
-    auto *temp = new Nodo<Album>(new Album(nombre,nombre,getNoMes(nombre), nullptr));
-
+    auto *temp = new Nodo<Album>(new Album(nombre,nombre,0, nullptr));
+    temp->getDato().setNom(getNoMes(nombre));
     aux = this->root;
     while(aux->getDown()!=0){
         aux = aux->getDown();
@@ -157,6 +162,7 @@ Nodo<T>* Matriz<T>::insertarFila(const string &nombre){
 
 template<class T>
 void Matriz<T>::insertar(Album* album) {
+    album->setNom(getNoMes(album->getMes()));
     auto *nodo = new Nodo<Album>(album);
     insertarEnFila(insertarFila(album->getMes()),nodo);
     imprimirNodo(insertarEnColumna(insertarColumna(album->getAnio()),nodo));
@@ -207,19 +213,21 @@ Nodo<Album>* Matriz<T>::insertarEnColumna(Nodo<Album>* h_col, Nodo<Album>* nodo)
         Nodo<Album> *aux = h_col;
         while (aux->getDown() != 0) {
             aux = aux->getDown();
-            if (nodo->getDato().getAnio() < aux->getDato().getAnio()) {
+            cout << nodo->getDato().getNom() << " " << aux->getDato().getNom() << endl;
+            if (nodo->getDato().getNom() < aux->getDato().getNom()) {
                 aux->getUp()->setDown(nodo);
                 nodo->setUp(aux->getUp());
                 nodo->setDown(aux);
                 aux->setUp(nodo);
                 return nodo;
-            }else if(nodo->getDato().getAnio()==aux->getDato().getAnio()) {
+            }else if(nodo->getDato().getNom()==aux->getDato().getNom()) {
                 return nodo;
             }
-            aux->setDown(nodo);
-            nodo->setUp(aux);
-            return nodo;
         }
+        cout << "aux: " <<aux->getDato().getNombre() << endl;
+        aux->setDown(nodo);
+        nodo->setUp(aux);
+        return nodo;
     }
 }
 
@@ -240,6 +248,81 @@ void Matriz<T>::imprimirFilas(){
         cout << aux->getDato().getNombre() << endl;
         aux = aux->getDown();
     }
+}
+
+template <class T>
+void Matriz<T>::imprimirAlbumes(){
+    Nodo<Album> *aux = this->root->getRight();
+    Nodo<Album> *aux2;
+    Nodo<Album> *aux3;
+    cout << "0: Salir" << endl;
+    while(aux!=0){
+        aux2=aux->getDown();
+        while(aux2!=0){
+            cout << aux2->getDato().getNombre() << endl;
+            aux3 = aux2->getFront();
+            while(aux3!=0){
+                cout << aux3->getDato().getNombre() << endl;
+                aux3 = aux3->getFront();
+            }
+            aux2 = aux2->getDown();
+        }
+        aux = aux->getRight();
+    }
+}
+
+template <class T>
+Album Matriz<T>::buscarAlbum(const std::string & nombre) {
+    Nodo<Album> *aux = this->root->getRight();
+    Nodo<Album> *aux2;
+    Nodo<Album> *aux3;
+    while(aux!=0){
+        aux2=aux->getDown();
+        while(aux2!=0){
+            if(iequals(aux2->getDato().getNombre(),nombre)){
+                return aux2->getDato();
+            }
+            aux3 = aux2->getFront();
+            while(aux3!=0){
+                if(iequals(aux3->getDato().getNombre(),nombre)){
+                    return aux3->getDato();
+                }
+                aux3 = aux3->getFront();
+            }
+            aux2 = aux2->getDown();
+        }
+        aux = aux->getRight();
+    }
+    throw 0;
+}
+
+template <class T>
+ListaDoble<Cancion*> *Matriz<T>::getAllCanciones(){
+    auto* songs = new ListaDoble<Cancion*>();
+    Lista<Cancion*> *canciones;
+    Nodo<Album> *aux = this->root->getRight();
+    Nodo<Album> *aux2;
+    Nodo<Album> *aux3;
+    while(aux!=0){
+        aux2=aux->getDown();
+        while(aux2!=0){
+            canciones = aux2->getDato().getCanciones();
+            for(int i = 0; i < canciones->getSize(); i++){
+                songs->add_last(canciones->get_element_at(i));
+            }
+            aux3 = aux2->getFront();
+            while(aux3!=0){
+                canciones = aux3->getDato().getCanciones();
+                for(int j = 0; j < canciones->getSize(); j++){
+                    songs->add_last(canciones->get_element_at(j));
+                }
+                aux3 = aux3->getFront();
+            }
+            aux2 = aux2->getDown();
+        }
+        aux = aux->getRight();
+    }
+    return songs;
 }
 
 template <class T>
@@ -293,6 +376,8 @@ int Matriz<T>::getNoMes(const string &a){
     return 0;
 }
 
+
+
 template <class T>
 void Matriz<T>::imprimirNodo(Nodo<Album>* nodo){
     cout<<"Nombre: "<<nodo->getDato().getNombre()<<endl;
@@ -322,6 +407,130 @@ void Matriz<T>::imprimirNodo(Nodo<Album>* nodo){
     cout<<" : back"<<endl;
     cout<<endl;
 }
+string removeSpaces(string str)
+{
+    str.erase(remove(str.begin(), str.end(), ' '), str.end());
+    return str;
+}
+template <class T>
+string Matriz<T>::generarStringGraph() {
+    string graph = "digraph {\n"
+                   "splines=\"line\";\n"
+                   "rankdir = TB;\n"
+                   "node [shape=rectangle, height=0.5, width=1.5];\n"
+                   "graph[nodesep = 0.35, dpi=300];\n\n";
+
+
+
+    Nodo<Album> *aux = this->root;
+    while(aux!=0){
+        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" [label=\""+aux->getDato().getNombre()+"\"];\n";
+        aux = aux->getRight();
+    }
+    graph+="\n";
+
+    aux = this->root->getDown();
+    while(aux!=0){
+        graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+" [label=\""+aux->getDato().getNombre()+"\"];\n";
+        aux = aux->getDown();
+    }
+    graph+="\n";
+
+    aux = this->root->getDown();
+    Nodo<Album> *aux2;
+    //Nodo<Album> *aux3;
+    while(aux!=0){
+        aux2=aux->getRight();
+        while(aux2!=0){
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" [label=\""+aux2->getDato().getNombre()+"\"];\n";
+            aux2 = aux2->getRight();
+        }
+        aux = aux->getDown();
+    }
+    graph+="\n";
+
+    aux = this->root;
+    while(aux->getRight()!=0){
+        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" -> nodeY_"+removeSpaces(aux->getRight()->getDato().getNombre())+";\n";
+        graph += "nodeY_"+removeSpaces(aux->getRight()->getDato().getNombre())+" -> nodeY_"+removeSpaces(aux->getDato().getNombre())+";\n";
+        aux = aux->getRight();
+    }
+    graph+="\n";
+
+    aux = this->root->getRight();
+    while(aux!=0){
+        aux2=aux->getDown();
+        if(aux2!=0){
+            graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+";\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeY_"+removeSpaces(aux->getDato().getNombre())+";\n";
+        }
+
+        while(aux2->getDown()!=0){
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getDown()->getDato().getMes()+to_string(aux2->getDown()->getDato().getAnio()))+";\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDown()->getDato().getMes()+to_string(aux2->getDown()->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+";\n";
+            aux2 = aux2->getDown();
+        }
+        aux = aux->getRight();
+    }
+    graph+="\n";
+
+    aux = this->root;
+    if(aux->getDown()!=0){
+        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" -> nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+";\n";
+        graph += "nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+" -> nodeY_"+removeSpaces(aux->getDato().getNombre())+";\n";
+        aux = aux->getDown();
+    }
+    while(aux->getDown()!=0){
+        graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+" -> nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+";\n";
+        graph += "nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+" -> nodeM_"+removeSpaces(aux->getDato().getNombre())+";\n";
+        aux = aux->getDown();
+    }
+    graph+="\n";
+
+    aux = this->root->getDown();
+    while(aux!=0){
+        aux2=aux->getRight();
+        if(aux2!=0){
+            graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+"[constraint=false];\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeM_"+removeSpaces(aux->getDato().getNombre())+"[constraint=false];\n";
+        }
+
+        while(aux2->getRight()!=0){
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getRight()->getDato().getMes()+to_string(aux2->getRight()->getDato().getAnio()))+"[constraint=false];\n";
+            graph += "nodeV_"+removeSpaces(aux2->getRight()->getDato().getMes()+to_string(aux2->getRight()->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+"[constraint=false];\n";
+            aux2 = aux2->getRight();
+        }
+        aux = aux->getDown();
+    }
+    graph+="\n";
+
+    aux = this->root;
+    graph += "{rank=same; ";
+    while(aux!=0){
+        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+"; ";
+        aux=aux->getRight();
+    }
+    graph+="}\n";
+
+    aux = this->root->getDown();
+    while(aux!=0){
+        aux2=aux->getRight();
+        graph += "{rank=same; ";
+        graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+"; ";
+
+        while(aux2!=0){
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+"; ";
+            aux2 = aux2->getRight();
+        }
+        aux = aux->getDown();
+        graph+="}\n";
+    }
+    graph+="\n";
+
+    return graph+"}\n"; //C:\Users\Monther\Downloads\Library.json
+    //C:\Users\Monther\Downloads\Playlist_Rock.json
+}
+
 
 
 #endif //PROYECTO_1_EDD_MATRIZ_H
