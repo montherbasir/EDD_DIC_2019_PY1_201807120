@@ -15,8 +15,9 @@ class Artista {
 private:
     std::string nombre;
     Matriz<Album>* albumes;
+    double rating;
 public:
-    Artista(string nombre, Matriz<Album> *albumes) : nombre(std::move(nombre)), albumes(albumes) {}
+    Artista(string nombre, Matriz<Album> *albumes, double rating_) : nombre(std::move(nombre)), albumes(albumes), rating(rating_) {}
 
     const string &getNombre() const {
         return nombre;
@@ -38,10 +39,22 @@ public:
         albumes->imprimirAlbumes();
     }
 
-    Album buscarAlbum(const string& nombre){
-        return albumes->buscarAlbum(nombre);
+    Album buscarAlbum(const string& nombre_){
+        return albumes->buscarAlbum(nombre_);
     }
 
+    double getRating() const {
+        return rating;
+    }
+
+    void setRating(double rating_) {
+        Artista::rating = rating_;
+    }
+
+
+    void getRated() {
+
+    }
 
 };
 

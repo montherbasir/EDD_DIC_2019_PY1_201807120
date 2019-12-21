@@ -42,19 +42,17 @@ public:
         for(int i = 0; i<x;i++){
             Cancion* cancion = canciones->dequeue();
             lista->add_last(cancion);
-            cout << cancion->getNombre();
         }
 
         while(lista->getSize()!=0){
             generarGraph(lista);
             lista->remove_at(0);
-            Sleep(2000);
+            Sleep(6000);
         }
 
     }
 
     void generarGraph(Lista<Cancion*>* lista){
-        cout << "Hola " <<endl;
         string graph = "digraph {\n"
                        "splines=\"line\";\n"
                        "rankdir = LR;\n"
@@ -64,20 +62,16 @@ public:
 
         if(lista->getSize()>0){
             graph += "node0 [label=\""+lista->get_element_at(0)->getNombre()+"\", fillcolor=greenyellow, style=filled];\n";
-            cout << lista->get_element_at(0)->getNombre()<<endl;
         }
 
         for(int j = 1; j<lista->getSize();j++){
             Cancion* cancion = lista->get_element_at(j);
             graph += "node"+to_string(j)+" [label=\""+cancion->getNombre()+"\"];\n";
-            cout << cancion->getNombre()<<endl;
         }
 
         for(int k = 0; k<lista->getSize()-1;k++){
-            cout<<lista->getSize();
             Cancion* cancion = lista->get_element_at(k);
-            graph += "node"+to_string(k)+" -> node"+to_string(k+1)+"\n";
-            cout << cancion->getNombre()<<endl;
+            graph += "node"+to_string(k)+" -> node"+to_string(k+1)+";\n";
         }
 
         ofstream myfile;

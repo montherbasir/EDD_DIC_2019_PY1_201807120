@@ -20,7 +20,7 @@ private:
     Lista<Cancion*>* canciones;
     int nom;
 public:
-    double getRating() const {
+    double getRating()  {
         return rating;
     }
 
@@ -28,18 +28,16 @@ public:
         Album::rating = rating_;
     }
 
-    int getNom() const {
+    int getNom()  {
         return nom;
     }
 
-    void setNom(int nom) {
-        Album::nom = nom;
+    void setNom(int nom_) {
+        Album::nom = nom_;
     }
 
-    Album(std::string nombre, std::string mes, int anio, Lista<Cancion*> *canciones) : nombre(std::move(nombre)),
-                                                                                                   mes(std::move(mes)), anio(anio),
-                                                                                                   canciones(
-                                                                                                           canciones) {}
+    Album(const std::string &nombre, const std::string &mes, int anio, double rating, Lista<Cancion *> *canciones,
+          int nom) : nombre(nombre), mes(mes), anio(anio), rating(rating), canciones(canciones), nom(nom) {}
 
 
     const std::string &getNombre() const {

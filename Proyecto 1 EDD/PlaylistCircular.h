@@ -33,40 +33,70 @@ public:
     }
 
     void reproducir() override{
-//        while(canciones->getSize()!=0){
-        generarGraph(canciones);
+        string i;
+        int ind=0;
+        while(ind<canciones->getSize()&&ind>-1){
+            generarGraph(canciones,ind);
+            cout << "0: Salir" <<endl;
+            cout << "1: Atras" <<endl;
+            cout << "2: Adelante" <<endl;
+            getline(cin,i);
+            if(i=="1"){
+                ind--;
+                if(ind==-1){
+                    ind=canciones->getSize()-1;
+                }
+            }else if(i=="2") {
+                ind++;
+                if(ind==canciones->getSize()){
+                    ind=0;
+                }
+            }else if(i=="0"){
+                break;
+            }else{
 
-        Sleep(2000);
-//        }
+            }
+            Sleep(500);
+        }
 
     }
 
-    void generarGraph(ListaDobleCircular<Cancion*>* lista){
-        cout << "Hola " <<endl;
+    void generarGraph(ListaDobleCircular<Cancion*>* lista, int in){
+
         string graph = "digraph {\n"
-                       "splines=\"line\";\n"
+                       //"splines=\"line\";\n"
                        "rankdir = LR;\n"
                        "node [shape=rectangle, height=0.5, width=1.5];\n"
                        "graph[nodesep = 0.35, dpi=300];\n\n";
 
 
         if(lista->getSize()>0){
-            graph += "node0 [label=\""+lista->get_element_at(0)->getNombre()+"\", fillcolor=greenyellow, style=filled];\n";
-            cout << lista->get_element_at(0)->getNombre()<<endl;
+            graph += "node0 [label=\""+lista->get_element_at(0)->getNombre()+"\"]";
+            if(in==0){
+                graph+="[fillcolor=greenyellow, style=filled];\n";
+            }else{
+                graph+=";\n";
+            }
         }
 
         for(int j = 1; j<lista->getSize();j++){
             Cancion* cancion = lista->get_element_at(j);
-            graph += "node"+to_string(j)+" [label=\""+cancion->getNombre()+"\"];\n";
-            cout << cancion->getNombre()<<endl;
+            graph += "node"+to_string(j)+" [label=\""+cancion->getNombre()+"\"]";
+            if(in==j){
+                graph+="[fillcolor=greenyellow, style=filled];\n";
+            }else{
+                graph+=";\n";
+            }
         }
 
         for(int k = 0; k<lista->getSize()-1;k++){
-            cout<<lista->getSize();
             Cancion* cancion = lista->get_element_at(k);
-            graph += "node"+to_string(k)+" -> node"+to_string(k+1)+"\n";
-            cout << cancion->getNombre()<<endl;
+            graph += "node"+to_string(k)+" -> node"+to_string(k+1)+";\n";
+            graph += "node"+to_string(k+1)+" -> node"+to_string(k)+";\n";
         }
+
+        graph += "node0 -> node"+to_string(lista->getSize()-1)+";\n";
+        graph += "node"+to_string(lista->getSize()-1)+" -> node0;\n";
 
         ofstream myfile;
         myfile.open("stack.dot");

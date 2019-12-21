@@ -32,11 +32,29 @@ string
 utility
 -
 
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Arbol.h
+iostream
+-
+../Playlist.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Playlist.h
+string
+-
+utility
+-
+fstream
+-
+windows.h
+-
+
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Cola.h
 Lista.h
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Lista.h
 
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Lista.h
+
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/ListaArtistas.h
+../Artista.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Artista.h
 
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/ListaDoble.h
 
@@ -55,6 +73,8 @@ algorithm
 -
 ../Album.h
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Album.h
+windows.h
+-
 
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Pila.h
 Lista.h
@@ -105,6 +125,8 @@ Cancion.h
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/Cancion.h
 EDD/ListaDoble.h
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/ListaDoble.h
+random
+-
 
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistStack.h
 string
@@ -147,6 +169,10 @@ PlaylistShuffle.h
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistShuffle.h
 PlaylistCircular.h
 /cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/PlaylistCircular.h
+EDD/ListaArtistas.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/ListaArtistas.h
+EDD/Arbol.h
+/cygdrive/c/Users/Monther/CLionProjects/EDD_DIC_2019_PY1_201807120/Proyecto 1 EDD/EDD/Arbol.h
 windows.h
 -
 

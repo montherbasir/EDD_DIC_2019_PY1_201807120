@@ -12,6 +12,8 @@
 #include "PlaylistQueue.h"
 #include "PlaylistShuffle.h"
 #include "PlaylistCircular.h"
+#include "EDD/ListaArtistas.h"
+#include "EDD/Arbol.h"
 #include <windows.h>
 
 using namespace std;
@@ -36,41 +38,51 @@ Json::Value parseJson(const string &file) {
 
 }
 
-ListaDoble<Artista *> *cargarJson(const string &s, ListaDoble<Artista *> *artistas) {
+ListaArtistas *cargarJson(const string &s, ListaArtistas *artistas) {
 
     Json::Value root = parseJson(s);
 
     for (int i = 0; i < root["Library"].size(); i++) {
         Json::Value artist = root["Library"][i]["Artist"];
         string name = artist["Name"].asString();
-        cout << "Artista: " << name << endl;
-        auto *art = new Artista(name, nullptr);
+        //cout << "Artista: " << name << endl;
+        double s=0;
+        int n1=0;
+        auto *art = new Artista(name, nullptr,0);
         auto *albumes = new Matriz<Album>(name);
         for (int j = 0; j < artist["Albums"].size(); j++) {
             Json::Value album = artist["Albums"][j];
             string name1 = album["Name"].asString();
-            cout << "   " << name1 << endl;
+            //cout << "   " << name1 << endl;
             string month = album["Month"].asString();
-            cout << "   " << month << endl;
+            //cout << "   " << month << endl;
             string year = album["Year"].asString();
-            cout << "   " << year << endl;
-            auto *al = new Album(name1, month, stoi(year), nullptr);
+            //cout << "   " << year << endl;
+            auto *al = new Album(name1, month, stoi(year),0, nullptr,0);
             auto *canciones = new Lista<Cancion *>();
+            double sum=0;
+            int n=0;
             for (int k = 0; k < album["Songs"].size(); k++) {
                 Json::Value song = album["Songs"][k];
                 string name2 = song["Name"].asString();
-                cout << "       " << name2 << endl;
+                //cout << "       " << name2 << endl;
                 string file = song["File"].asString();
-                cout << "       " << file << endl;
+                //cout << "       " << file << endl;
                 string rating = song["Rating"].asString();
-                cout << "       " << rating << endl;
+                //cout << "       " << rating << endl;
                 auto *cancion = new Cancion(name2, file, month, name1, name, stoi(year), stod(rating));
+                sum +=stod(rating);
                 canciones->add_last(cancion);
+                n++;
             }
+            s+=sum;
+            n1+=n;
+            al->setRating(sum/n);
             al->setCanciones(canciones);
             albumes->insertar(al);
         }
         art->setAlbumes(albumes);
+        art->setRating(s/n1);
         artistas->add_last(art);
     }
     return artistas;
@@ -93,12 +105,13 @@ void reproducirCancion(Cancion *cancion) {
     cout << "Ingrese cualquier texto para salir" << endl;
 }
 
-void reproducirArtista(ListaDoble<Artista *> *artistas_) {
+void reproducirArtista(ListaArtistas *artistas_) {
     ART:
     string s;
     cout << endl;
     cout << "Selecciones un artista: " << endl;
     cout << "0: Salir" << endl;
+    artistas_->ordenarNombre();
     for (int i = 0; i < artistas_->getSize(); i++) {
         cout << i + 1 << ": " << artistas_->get_element_at(i)->getNombre() << endl;
     }
@@ -116,7 +129,7 @@ void reproducirArtista(ListaDoble<Artista *> *artistas_) {
         cout << endl;
         cout << "Albumes" << endl;
         art->imprimirAlbumes();
-        Album alb = *new Album("", "", 0, nullptr);
+        Album alb = *new Album("", "", 0,0,nullptr,0);
         s = "";
         cout << endl;
         cout << "Ingrese el nombre de un album: " << endl;
@@ -159,7 +172,7 @@ void reproducirArtista(ListaDoble<Artista *> *artistas_) {
 
 }
 
-void reproducirCanciones(ListaDoble<Artista *> *artistas_) {
+void reproducirCanciones(ListaArtistas *artistas_) {
     CAN:
     int x = 0;
     auto *songs = new ListaDoble<Cancion *>();
@@ -217,106 +230,107 @@ int getType(const string &a) {
 }
 
 
-void plStack(string s, Json::Value root){
+void plStack(string s, Json::Value root, Arbol* playlists){
     cout << "STACK" << endl;
     auto *playlist = new PlaylistStack(s,"Stack");
     for (int i = 0; i < root["Songs"].size(); i++) {
 
         Json::Value song = root["Songs"][i];
         int year =stoi(song["Year"].asString());
-        cout << "       " << to_string(year) << endl;
+        //cout << "       " << to_string(year) << endl;
         string month = song["Month"].asString();
-        cout << "       " << month << endl;
+        //cout << "       " << month << endl;
         string album = song["Album"].asString();
-        cout << "       " << album << endl;
+        //cout << "       " << album << endl;
         string name = song["Song"].asString();
-        cout << "       " << name << endl;
+        //cout << "       " << name << endl;
         string artist = song["Artist"].asString();
-        cout << "       " << artist << endl;
+        //cout << "       " << artist << endl;
         auto *cancion = new Cancion(name,"",month,album,artist,year,0);
 
         playlist->addCancion(cancion);
     }
-
-    playlist->reproducir();
+    playlists->add(playlist);
+    //playlist->reproducir();
 }
 
-void plShuffle(string s, Json::Value root){
+void plShuffle(string s, Json::Value root, Arbol* playlists){
     cout << "SHUFFLE" << endl;
     auto *playlist = new PlaylistShuffle(s,"Shuffle");
     for (int i = 0; i < root["Songs"].size(); i++) {
 
         Json::Value song = root["Songs"][i];
         int year =stoi(song["Year"].asString());
-        cout << "       " << to_string(year) << endl;
+        //cout << "       " << to_string(year) << endl;
         string month = song["Month"].asString();
-        cout << "       " << month << endl;
+        //cout << "       " << month << endl;
         string album = song["Album"].asString();
-        cout << "       " << album << endl;
+        //cout << "       " << album << endl;
         string name = song["Song"].asString();
-        cout << "       " << name << endl;
+        //cout << "       " << name << endl;
         string artist = song["Artist"].asString();
-        cout << "       " << artist << endl;
+        //cout << "       " << artist << endl;
         auto *cancion = new Cancion(name,"",month,album,artist,year,0);
 
         playlist->addCancion(cancion);
     }
-
-    playlist->reproducir();
+    playlists->add(playlist);
+    //playlist->reproducir();
 }
 
-void plQueue(string s, Json::Value root){
+void plQueue(string s, Json::Value root, Arbol* playlists){
     cout << "QUEUE" << endl;
     auto *playlist = new PlaylistQueue(s,"Queue");
     for (int i = 0; i < root["Songs"].size(); i++) {
 
         Json::Value song = root["Songs"][i];
         int year =stoi(song["Year"].asString());
-        cout << "       " << to_string(year) << endl;
+        //cout << "       " << to_string(year) << endl;
         string month = song["Month"].asString();
-        cout << "       " << month << endl;
+        //cout << "       " << month << endl;
         string album = song["Album"].asString();
-        cout << "       " << album << endl;
+        //cout << "       " << album << endl;
         string name = song["Song"].asString();
-        cout << "       " << name << endl;
+        //cout << "       " << name << endl;
         string artist = song["Artist"].asString();
-        cout << "       " << artist << endl;
+        //cout << "       " << artist << endl;
         auto *cancion = new Cancion(name,"",month,album,artist,year,0);
 
         playlist->addCancion(cancion);
     }
-
-    playlist->reproducir();
+    playlists->add(playlist);
+    //playlist->reproducir();
 }
 
-void plCircular(string s, Json::Value root){
+void plCircular(string s, Json::Value root, Arbol* playlists){
     cout << "CIRCULAR" << endl;
     auto *playlist = new PlaylistCircular(s,"Circular");
     for (int i = 0; i < root["Songs"].size(); i++) {
 
         Json::Value song = root["Songs"][i];
         int year =stoi(song["Year"].asString());
-        cout << "       " << to_string(year) << endl;
+        //cout << "       " << to_string(year) << endl;
         string month = song["Month"].asString();
-        cout << "       " << month << endl;
+        //cout << "       " << month << endl;
         string album = song["Album"].asString();
-        cout << "       " << album << endl;
+        //cout << "       " << album << endl;
         string name = song["Song"].asString();
-        cout << "       " << name << endl;
+        //cout << "       " << name << endl;
         string artist = song["Artist"].asString();
-        cout << "       " << artist << endl;
+        //cout << "       " << artist << endl;
         auto *cancion = new Cancion(name,"",month,album,artist,year,0);
 
         playlist->addCancion(cancion);
     }
-
-    playlist->reproducir();
+    playlists->add(playlist);
+    //playlist->reproducir();
 }
 
-void cargarPlaylist() {
+void cargarPlaylist(Arbol* playlists) {
     cout << "Ingrese la ruta del archivo json: " << endl;
-    string s=R"(C:\Users\Monther\Downloads\Playlist_Rock.json)";
-    //getline(cin, s);
+    //string s=R"(C:\Users\Monther\Downloads\Playlist_Rock.json)";
+    string s;
+    getline(cin, s);
     cout << endl;
 
     Json::Value root = parseJson(s);
@@ -332,28 +346,109 @@ void cargarPlaylist() {
         s.erase(period_idx);
     }
 
-    cout << s <<endl;
+    cout << "Playlist cargada" <<endl;
+    cout << "Nombre: " << s <<endl;
+
     int type = getType(root["Type"].asString());
 
     if(type==1){
-        plStack(s, root);
+        plStack(s, root, playlists);
     }else if(type==2) {
-        plQueue(s, root);
+        plQueue(s, root, playlists);
     }else if(type==3) {
-        plShuffle(s, root);
+        plShuffle(s, root, playlists);
     }else if(type==4) {
-        plCircular(s, root);
+        plCircular(s, root, playlists);
     }
 
 }
 
+void reproducirPlaylist(Arbol *playlists){
+    if(!playlists->isEmpty()){
+        string c;
+        cout << "Playlists:"<<endl;
+        cout <<"0: Salir"<<endl;
+        playlists->imprimir();
+        cout<<"Ingrese el nombre de la playlist"<<endl;
+        getline(cin,c);
+        playlists->buscar(c)->reproducir();
+    }else{
+        cout<<"Cargue una playlist primero"<<endl;
+    }
 
+}
 
+void discRep(ListaArtistas* artistas){
+    string s;
+    cout << endl;
+    cout << "Selecciones un artista: " << endl;
+    cout << "0: Salir" << endl;
+    artistas->ordenarNombre();
+    for (int i = 0; i < artistas->getSize(); i++) {
+        cout << i + 1 << ": " << artistas->get_element_at(i)->getNombre() << endl;
+    }
+    getline(cin, s);
+    if (stoi(s) == 0) {
+        return;
+    }
+    if (stoi(s) > artistas->getSize()) {
+        return;
+    }
+    artistas->get_element_at(stoi(s) - 1)->getAlbumes()->generarStringGraph();
+}
 
+void top5Art(ListaArtistas* artistas){
+    string s;
+    cout << endl;
+    cout << "0: Salir" << endl;
+    artistas->ordenarRating();
+
+    artistas->generarReporte();
+}
+
+void reportes(Arbol* playlists, ListaArtistas* artistas){
+    cout << "Seleccione un reporte:" <<endl;
+    cout << "0: Salir" << endl;
+    cout << "1: Reporte de artistas" << endl;
+    cout << "2: Discography report" << endl;
+    cout << "3: Album report" << endl;
+    cout << "4: Playlists report" << endl;
+    cout << "5: Top 5 albums by artist" << endl;
+    cout << "6: Top 5 artists" << endl;
+    string x;
+    getline(cin,x);
+    try {
+        switch (stoi(x)) {
+            case 0:
+                return;
+            case 1:
+                artistas->ordenarNombre();
+                artistas->generarReporte();
+                return;
+                break;
+            case 2:
+                discRep(artistas);
+                    break;
+            case 3:
+                cargarPlaylist(playlists);
+                break;
+            case 4:
+                playlists->graficar();
+                break;
+            case 6:
+                top5Art(artistas);
+                break;
+        }
+    } catch (const std::exception &exc) {
+        cout << exc.what() ;
+    }
+}
 
 
 int main() {
-    auto *artistas = new ListaDoble<Artista *>();
+
+    auto *artistas = new ListaArtistas();
+    auto *playlists = new Arbol();
 //    auto *m = new Matriz<Album>("Monther");
 //    m->insertarColumna(10);
 //    m->insertarColumna(11);
@@ -381,26 +476,25 @@ int main() {
 
     cout << "Bienvenido a Music++" << endl;
     cout << "Ingrese la ruta del archivo json: " << endl;
-    string s=R"(C:\Users\Monther\Downloads\Library.json)";
-    //getline(cin, s);
+    //string s=R"(C:\Users\Monther\Downloads\Library.json)";
+    string s;
+    getline(cin, s);
     cout << endl;
     artistas = cargarJson(s, artistas);
-    string g = artistas->get_element_at(2)->getAlbumes()->generarStringGraph();
-    ofstream myfile;
-    myfile.open("matriz.dot");
-    myfile << g;
-    myfile.close();
-    system("dot -Tpng matriz.dot -o matriz.png");
-    ShellExecute(NULL, "open", "matriz.png", NULL, NULL, SW_NORMAL);
+
     string x;
-    while (x.compare("0") != 0) {
+    while (x != "0") {
         cout << "MENU:" << endl;
         cout << "0: Salir" << endl;
         cout << "1: Reproducir por artista" << endl;
         cout << "2: Reproducir por canciones" << endl;
         cout << "3: Cargar playlist" << endl;
         cout << "4: reproducir playlist" << endl;
+        cout << "5: Reportes" << endl;
         getline(cin, x);
+
+
+
         try {
             switch (stoi(x)) {
                 case 0:
@@ -412,10 +506,13 @@ int main() {
                     reproducirCanciones(artistas);
                     break;
                 case 3:
-                    cargarPlaylist();
+                    cargarPlaylist(playlists);
                     break;
                 case 4:
-                    //reproducirPlaylist();
+                    reproducirPlaylist(playlists);
+                    break;
+                case 5:
+                    reportes(playlists,artistas);
                     break;
             }
         } catch (const std::exception &exc) {

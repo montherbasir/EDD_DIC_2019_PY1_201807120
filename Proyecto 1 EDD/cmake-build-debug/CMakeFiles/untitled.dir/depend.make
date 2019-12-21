@@ -4,8 +4,10 @@
 CMakeFiles/untitled.dir/main.cpp.o: ../Album.h
 CMakeFiles/untitled.dir/main.cpp.o: ../Artista.h
 CMakeFiles/untitled.dir/main.cpp.o: ../Cancion.h
+CMakeFiles/untitled.dir/main.cpp.o: ../EDD/Arbol.h
 CMakeFiles/untitled.dir/main.cpp.o: ../EDD/Cola.h
 CMakeFiles/untitled.dir/main.cpp.o: ../EDD/Lista.h
+CMakeFiles/untitled.dir/main.cpp.o: ../EDD/ListaArtistas.h
 CMakeFiles/untitled.dir/main.cpp.o: ../EDD/ListaDoble.h
 CMakeFiles/untitled.dir/main.cpp.o: ../EDD/ListaDobleCircular.h
 CMakeFiles/untitled.dir/main.cpp.o: ../EDD/Matriz.h

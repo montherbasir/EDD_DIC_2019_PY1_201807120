@@ -1,8 +1,24 @@
 digraph {
-splines="line";
 rankdir = LR;
 node [shape=rectangle, height=0.5, width=1.5];
 graph[nodesep = 0.35, dpi=300];
 
-node0 [label="Young and Aspiring", fillcolor=greenyellow, style=filled];
+node0 [label="Young and Aspiring"][fillcolor=greenyellow, style=filled];
+node1 [label="On My Teeth"];
+node2 [label="Blinded"];
+node3 [label="1"];
+node4 [label="2"];
+node5 [label="3"];
+node0 -> node1;
+node1 -> node0;
+node1 -> node2;
+node2 -> node1;
+node2 -> node3;
+node3 -> node2;
+node3 -> node4;
+node4 -> node3;
+node4 -> node5;
+node5 -> node4;
+node0 -> node5;
+node5 -> node0;
 }

@@ -1,0 +1,14 @@
+digraph {
+splines="line";
+rankdir = TB;
+node [shape=record, height=0.5, width=1.5];
+graph[dpi=300];
+
+"plccc" [label="<C0>|plccc|<C1>"];
+"pla" [label="<C0>|pla|<C1>"];
+"pl1" [label="<C0>|pl1|<C1>"];
+"Playlist_Rock" [label="Playlist_Rock"];
+"pl1":C0 -> "Playlist_Rock";
+"pla":C0 -> "pl1";
+"plccc":C0 -> "pla";
+}

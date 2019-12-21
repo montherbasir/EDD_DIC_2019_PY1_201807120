@@ -5,117 +5,150 @@
 #ifndef UNTITLED_ARBOL_H
 #define UNTITLED_ARBOL_H
 
+#include <iostream>
+#include "../Playlist.h"
+#include <string>
+#include <utility>
+#include <fstream>
+#include <windows.h>
+using namespace std;
 
-template<class T>
 class Arbol
 {
-    class Nodo{
+
+    class Nodo
+    {
     public:
-        Nodo(T x)
-        {
-            izq = 0;
-            der = 0;
-            dato = x;
+        explicit Nodo (Playlist* playlist_) : playlist(playlist_), izq(0), der(0) {}
+
+        Playlist *getPlaylist() const {
+            return playlist;
         }
 
-        Nodo *getIzq(){ return izq;}
-        Nodo *getDer() {return der;}
-        void setIzq(Nodo *n) { izq = n;}
-        void setDer(Nodo *n){ der = n;}
-        T getDato(){ return dato;}
+        void setPlaylist(Playlist *playlist_) {
+            Nodo::playlist = playlist_;
+        }
+
+        Nodo *getIzq() const {
+            return izq;
+        }
+
+        void setIzq(Nodo *izq_) {
+            Nodo::izq = izq_;
+        }
+
+        Nodo *getDer() const {
+            return der;
+        }
+
+        void setDer(Nodo *der_) {
+            Nodo::der = der_;
+        }
+
+        string getGraph(){
+            string g;
+            if(izq==0&&der==0){
+                g = "\""+playlist->getName()+"\" [label=\""+playlist->getName()+"\"];\n";
+            }else{
+                g = "\""+playlist->getName()+"\" [label=\"<C0>|"+playlist->getName()+"|<C1>\"];\n";
+            }
+
+            if(izq!=0){
+                g += izq->getGraph() + "\""+playlist->getName()+"\":C0 -> \""+izq->playlist->getName()+"\";\n";
+            }
+            if(der!=0){
+                g += der->getGraph() + "\""+playlist->getName()+"\":C1 -> \""+der->getPlaylist()->getName()+"\";\n";
+            }
+            return g;
+        }
+
     private:
-        Nodo *izq;
-        Nodo *der;
-        T dato;
+        Playlist *playlist;
+        Nodo* izq;
+        Nodo* der;
     };
-public:
-    Arbol()
-    {
-        raiz = 0;
-        size = 0;
-    }
-    Nodo insertar(T x);
 private:
-    bool isEmpty(){return size == 0;}
-    int size;
-    Nodo *raiz;
+    Nodo* raiz;
+    void add(Playlist *dato, Nodo* tmp)
+    {
+        if (dato->getName()<tmp->getPlaylist()->getName())
+        {
+            if (tmp->getIzq()!=0) add(dato, tmp->getIzq());
+            else tmp->setIzq(new Nodo(dato));
+        }
+        else
+        {
+            if (tmp->getDer()!=0) add(dato, tmp->getDer());
+            else tmp->setDer(new Nodo(dato));
+        }
+    }
+
+    Playlist* search(string dato, Nodo* tmp){
+
+        if(tmp==0)
+            return 0;
+        if (tmp->getPlaylist()->getName() == dato)
+            return tmp->getPlaylist();
+
+        if (tmp->getPlaylist()->getName() < dato)
+            return search(dato, tmp->getDer());
+
+        return search(dato, tmp->getIzq());
+    }
+
+    string inorder(Nodo* tmp)
+    {
+        if (tmp!=0)
+        {
+            inorder(tmp->getIzq());
+            tmp->getPlaylist()->getName();
+            inorder(tmp->getDer());
+        }
+    }
+
+public:
+
+    Arbol () : raiz(0) {}
+
+    bool isEmpty(){
+        return this->raiz==0;
+    }
+    void add(Playlist *playlist)
+    {
+        if (raiz!=0) add(playlist, raiz);
+        else raiz = new Nodo(playlist);
+    }
+
+    void imprimir(){
+        cout <<"Playlists:"<<endl;
+        inorder(this->raiz);
+    }
+
+    void graficar(){
+        string graph = "digraph {\n"
+                       "splines=\"line\";\n"
+                       "rankdir = TB;\n"
+                       "node [shape=record, height=0.5, width=1.5];\n"
+                       "graph[dpi=300];\n\n";
+
+        graph += raiz->getGraph();
+
+        graph += "}";
+
+        ofstream myfile;
+        myfile.open("arbol.dot");
+        myfile << graph;
+        myfile.close();
+        system("dot -Tpng arbol.dot -o arbol.png");
+        ShellExecute(NULL, "open", "arbol.png", NULL, NULL, SW_NORMAL);
+    }
+
+    Playlist* buscar(string nombre)
+    {
+        return search(std::move(nombre), this->raiz);
+    }
+
 };
 
-template<class T>
-void ListaDoble<T>::add_first(T dato)
-{
-    Nodo *n = new Nodo(dato);
-    if(this->isEmpty())
-    {
-        this->first = n;
-        this->last = n;
-        this->size++;
-    }
-    else
-    {
-        n->setNext(this->first);
-        this->first->setBefore(n);
-        this->first = n;
-        this->size++;
-    }
-}
-
-template<class T>
-void ListaDoble<T>::add_last(T dato)
-{
-    if(this->isEmpty())
-    {
-        this->add_first(dato);
-    }
-    else
-    {
-        Nodo *n = new Nodo(dato);
-        this->last->setNext(n);
-        n->setBefore(this->last);
-        this->last = n;
-        this->size++;
-    }
-}
-
-template<class T>
-void ListaDoble<T>::add_at(T dato, int index)
-{
-    if(index >= 0 && index <= this->size)
-    {
-        if(index == 0){ this->add_first(dato); return;}
-        if(index == this->size) {this->add_last(dato); return;}
-        Nodo *aux = this->first;
-        int x = 0;
-        while(aux!=0)
-        {
-            if(x == index){break;}
-            aux = aux->getNext();
-            x++;
-        }
-        Nodo *n = new Nodo(dato);
-        aux->getBefore()->setNext(n);
-        n->setBefore(aux->getBefore());
-        n->setNext(aux);
-        aux->setBefore(n);
-        this->size++;
-    }
-}
-
-template<class T>
-T ListaDoble<T>::get_element_at(int index)
-{
-    if(index >= 0 && index < size)
-    {
-        Nodo *iterador = this->first;
-        int x = 0;
-        while(iterador!=0)
-        {
-            if(index == x){return iterador->getDato();}
-            iterador = iterador->getNext();
-            x++;
-        }
-    }
-    return 0;
-}
 
 #endif //UNTITLED_ARBOL_H

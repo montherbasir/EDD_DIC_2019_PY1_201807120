@@ -11,6 +11,7 @@
 #include <iostream>
 #include <algorithm>
 #include "../Album.h"
+#include <windows.h>
 using namespace std;
 
 template <class T>
@@ -57,7 +58,7 @@ public:
 
     explicit Matriz(const string& artista)
     {
-        auto *al = new Album(artista,"",-1, nullptr);
+        auto *al = new Album(artista,"",-1,0, nullptr,0);
         root = new Nodo<Album>(al);
     }
 
@@ -114,7 +115,7 @@ Nodo<T>* Matriz<T>::insertarColumna(int anio){
         return aux;
     }
 
-    auto *temp = new Nodo<Album>(new Album(to_string(anio),"mes",anio, nullptr));
+    auto *temp = new Nodo<Album>(new Album(to_string(anio),"mes",anio,0, nullptr,0));
 
     aux = this->root;
     while(aux->getRight()!=0){
@@ -141,12 +142,13 @@ Nodo<T>* Matriz<T>::insertarFila(const string &nombre){
         return aux;
     }
 
-    auto *temp = new Nodo<Album>(new Album(nombre,nombre,0, nullptr));
-    temp->getDato().setNom(getNoMes(nombre));
+    auto *temp = new Nodo<Album>(new Album(nombre,nombre,0,0,nullptr,getNoMes(nombre)));
+    //temp->getDato().setNom(getNoMes(nombre));
+    //cout << "NOM" << to_string(temp->getDato().getNom()) << endl;
     aux = this->root;
     while(aux->getDown()!=0){
         aux = aux->getDown();
-        if(temp->getDato().getAnio()<aux->getDato().getAnio()){
+        if(temp->getDato().getNom()<aux->getDato().getNom()){
             aux->getUp()->setDown(temp);
             temp->setUp(aux->getUp());
             temp->setDown(aux);
@@ -165,7 +167,7 @@ void Matriz<T>::insertar(Album* album) {
     album->setNom(getNoMes(album->getMes()));
     auto *nodo = new Nodo<Album>(album);
     insertarEnFila(insertarFila(album->getMes()),nodo);
-    imprimirNodo(insertarEnColumna(insertarColumna(album->getAnio()),nodo));
+    insertarEnColumna(insertarColumna(album->getAnio()),nodo);
 }
 
 template<class T>
@@ -213,7 +215,6 @@ Nodo<Album>* Matriz<T>::insertarEnColumna(Nodo<Album>* h_col, Nodo<Album>* nodo)
         Nodo<Album> *aux = h_col;
         while (aux->getDown() != 0) {
             aux = aux->getDown();
-            cout << nodo->getDato().getNom() << " " << aux->getDato().getNom() << endl;
             if (nodo->getDato().getNom() < aux->getDato().getNom()) {
                 aux->getUp()->setDown(nodo);
                 nodo->setUp(aux->getUp());
@@ -224,7 +225,6 @@ Nodo<Album>* Matriz<T>::insertarEnColumna(Nodo<Album>* h_col, Nodo<Album>* nodo)
                 return nodo;
             }
         }
-        cout << "aux: " <<aux->getDato().getNombre() << endl;
         aux->setDown(nodo);
         nodo->setUp(aux);
         return nodo;
@@ -337,40 +337,40 @@ bool Matriz<T>::iequals(const string& a, const string& b)
 
 template <class T>
 int Matriz<T>::getNoMes(const string &a){
-    if(iequals(a,"enero")){
+    if(iequals(a,"Enero")){
         return 1;
     }
-    if(iequals(a,"febrero")){
+    if(iequals(a,"Febrero")){
         return 2;
     }
-    if(iequals(a,"marzo")){
+    if(iequals(a,"Marzo")){
         return 3;
     }
-    if(iequals(a,"abril")){
+    if(iequals(a,"Abril")){
         return 4;
     }
-    if(iequals(a,"mayo")){
+    if(iequals(a,"Mayo")){
         return 5;
     }
-    if(iequals(a,"junio")){
+    if(iequals(a,"Junio")){
         return 6;
     }
-    if(iequals(a,"julio")){
+    if(iequals(a,"Julio")){
         return 7;
     }
-    if(iequals(a,"agosto")){
+    if(iequals(a,"Agosto")){
         return 8;
     }
-    if(iequals(a,"septiembre")){
+    if(iequals(a,"Septiembre")){
         return 9;
     }
-    if(iequals(a,"octubre")){
+    if(iequals(a,"Octubre")){
         return 10;
     }
-    if(iequals(a,"noviembre")){
+    if(iequals(a,"Noviembre")){
         return 11;
     }
-    if(iequals(a,"diciembre")){
+    if(iequals(a,"Diciembre")){
         return 12;
     }
     return 0;
@@ -417,32 +417,38 @@ string Matriz<T>::generarStringGraph() {
     string graph = "digraph {\n"
                    "splines=\"line\";\n"
                    "rankdir = TB;\n"
-                   "node [shape=rectangle, height=0.5, width=1.5];\n"
-                   "graph[nodesep = 0.35, dpi=300];\n\n";
+                   "node [shape=record, height=0.5, width=1.5];\n"
+                   "graph[dpi=300];\n\n";
 
 
 
     Nodo<Album> *aux = this->root;
     while(aux!=0){
-        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" [label=\""+aux->getDato().getNombre()+"\"];\n";
+        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" [label=\"<f0>"+aux->getDato().getNombre()+"\"];\n";
         aux = aux->getRight();
     }
     graph+="\n";
 
     aux = this->root->getDown();
     while(aux!=0){
-        graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+" [label=\""+aux->getDato().getNombre()+"\"];\n";
+        graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+" [label=\"<f0>"+aux->getDato().getNombre()+"\"];\n";
         aux = aux->getDown();
     }
     graph+="\n";
 
     aux = this->root->getDown();
     Nodo<Album> *aux2;
-    //Nodo<Album> *aux3;
+    Nodo<Album> *aux3;
     while(aux!=0){
         aux2=aux->getRight();
         while(aux2!=0){
-            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" [label=\""+aux2->getDato().getNombre()+"\"];\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" [label=\"<f0>"+aux2->getDato().getNombre();
+            aux3=aux2->getFront();
+            while(aux3!=0){
+                graph += " | <f1>"+aux3->getDato().getNombre();
+                aux3 = aux3->getFront();
+            }
+            graph+="\"];\n";
             aux2 = aux2->getRight();
         }
         aux = aux->getDown();
@@ -451,8 +457,8 @@ string Matriz<T>::generarStringGraph() {
 
     aux = this->root;
     while(aux->getRight()!=0){
-        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" -> nodeY_"+removeSpaces(aux->getRight()->getDato().getNombre())+";\n";
-        graph += "nodeY_"+removeSpaces(aux->getRight()->getDato().getNombre())+" -> nodeY_"+removeSpaces(aux->getDato().getNombre())+";\n";
+        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+":f0 -> nodeY_"+removeSpaces(aux->getRight()->getDato().getNombre())+":f0;\n";
+        graph += "nodeY_"+removeSpaces(aux->getRight()->getDato().getNombre())+":f0 -> nodeY_"+removeSpaces(aux->getDato().getNombre())+":f0;\n";
         aux = aux->getRight();
     }
     graph+="\n";
@@ -461,13 +467,13 @@ string Matriz<T>::generarStringGraph() {
     while(aux!=0){
         aux2=aux->getDown();
         if(aux2!=0){
-            graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+";\n";
-            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeY_"+removeSpaces(aux->getDato().getNombre())+";\n";
+            graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+":f0 -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0;\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0 -> nodeY_"+removeSpaces(aux->getDato().getNombre())+":f0;\n";
         }
 
         while(aux2->getDown()!=0){
-            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getDown()->getDato().getMes()+to_string(aux2->getDown()->getDato().getAnio()))+";\n";
-            graph += "nodeV_"+removeSpaces(aux2->getDown()->getDato().getMes()+to_string(aux2->getDown()->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+";\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0 -> nodeV_"+removeSpaces(aux2->getDown()->getDato().getMes()+to_string(aux2->getDown()->getDato().getAnio()))+":f0;\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDown()->getDato().getMes()+to_string(aux2->getDown()->getDato().getAnio()))+":f0 -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0;\n";
             aux2 = aux2->getDown();
         }
         aux = aux->getRight();
@@ -476,13 +482,13 @@ string Matriz<T>::generarStringGraph() {
 
     aux = this->root;
     if(aux->getDown()!=0){
-        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+" -> nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+";\n";
-        graph += "nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+" -> nodeY_"+removeSpaces(aux->getDato().getNombre())+";\n";
+        graph += "nodeY_"+removeSpaces(aux->getDato().getNombre())+":f0 -> nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+":f0;\n";
+        graph += "nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+":f0 -> nodeY_"+removeSpaces(aux->getDato().getNombre())+":f0;\n";
         aux = aux->getDown();
     }
     while(aux->getDown()!=0){
-        graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+" -> nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+";\n";
-        graph += "nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+" -> nodeM_"+removeSpaces(aux->getDato().getNombre())+";\n";
+        graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+":f0 -> nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+":f0;\n";
+        graph += "nodeM_"+removeSpaces(aux->getDown()->getDato().getNombre())+":f0 -> nodeM_"+removeSpaces(aux->getDato().getNombre())+":f0;\n";
         aux = aux->getDown();
     }
     graph+="\n";
@@ -491,13 +497,13 @@ string Matriz<T>::generarStringGraph() {
     while(aux!=0){
         aux2=aux->getRight();
         if(aux2!=0){
-            graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+"[constraint=false];\n";
-            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeM_"+removeSpaces(aux->getDato().getNombre())+"[constraint=false];\n";
+            graph += "nodeM_"+removeSpaces(aux->getDato().getNombre())+":f0 -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0[constraint=false];\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0 -> nodeM_"+removeSpaces(aux->getDato().getNombre())+":f0[constraint=false];\n";
         }
 
         while(aux2->getRight()!=0){
-            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getRight()->getDato().getMes()+to_string(aux2->getRight()->getDato().getAnio()))+"[constraint=false];\n";
-            graph += "nodeV_"+removeSpaces(aux2->getRight()->getDato().getMes()+to_string(aux2->getRight()->getDato().getAnio()))+" -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+"[constraint=false];\n";
+            graph += "nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0 -> nodeV_"+removeSpaces(aux2->getRight()->getDato().getMes()+to_string(aux2->getRight()->getDato().getAnio()))+":f0[constraint=false];\n";
+            graph += "nodeV_"+removeSpaces(aux2->getRight()->getDato().getMes()+to_string(aux2->getRight()->getDato().getAnio()))+":f0 -> nodeV_"+removeSpaces(aux2->getDato().getMes()+to_string(aux2->getDato().getAnio()))+":f0[constraint=false];\n";
             aux2 = aux2->getRight();
         }
         aux = aux->getDown();
@@ -527,8 +533,18 @@ string Matriz<T>::generarStringGraph() {
     }
     graph+="\n";
 
-    return graph+"}\n"; //C:\Users\Monther\Downloads\Library.json
+    graph+="}\n";
+
+    ofstream myfile;
+    myfile.open("matriz.dot");
+    myfile << graph;
+    myfile.close();
+    system("dot -Tpng matriz.dot -o matriz.png");
+    ShellExecute(NULL, "open", "matriz.png", NULL, NULL, SW_NORMAL);
+
+    //C:\Users\Monther\Downloads\Library.json
     //C:\Users\Monther\Downloads\Playlist_Rock.json
+    //C:\Users\Monther\Documents\plccc.json
 }
 
 

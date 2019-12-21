@@ -41,6 +41,7 @@ public:
     void add_last(T dato);
     void add_at(T dato, int index);
     T get_element_at(int index);
+
 private:
     bool isEmpty(){return size == 0;}
     int size;
@@ -124,5 +125,6 @@ T ListaDoble<T>::get_element_at(int index)
     }
     return 0;
 }
+
 
 #endif //UNTITLED_LISTADOBLE_H

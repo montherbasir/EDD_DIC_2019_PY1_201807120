@@ -1,0 +1,14 @@
+digraph {
+splines="line";
+rankdir = LR;
+node [shape=rectangle, height=0.5, width=1.5];
+graph[nodesep = 0.35, dpi=300];
+
+node0 [label="Underoath 5"];
+node1 [label="As I Lay Dying"];
+node2 [label="Monther Basir"];
+node0 -> node1;
+node1 -> node0;
+node1 -> node2;
+node2 -> node1;
+}

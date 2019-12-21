@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Cancion.h"
 #include "EDD/ListaDoble.h"
-
+#include <random>
 class PlaylistShuffle: public Playlist{
 private:
     std::string name;
@@ -34,23 +34,40 @@ public:
         if(canciones->getSize()==0){
             canciones->add_first(cancion_);
         }else{
-            int x = (rand() % canciones->getSize()+1) ;
-            std::cout<<x;
+            std::random_device rd;
+            std::mt19937 rng(rd());
+            std::uniform_int_distribution<int> uni(0,canciones->getSize());
+
+            auto x = uni(rng);
             canciones->add_at(cancion_, x);
         }
     }
 
     void reproducir() override{
-//        while(canciones->getSize()!=0){
-            generarGraph(canciones);
+        string i;
+        int ind=0;
+        while(ind<canciones->getSize()&&ind>-1){
+            generarGraph(canciones,ind);
+            cout << "0: Salir" <<endl;
+            cout << "1: Atras" <<endl;
+            cout << "2: Adelante" <<endl;
+            getline(cin,i);
+            if(i=="1"){
+                ind--;
+            }else if(i=="2") {
+                ind++;
+            }else if(i=="0"){
+                break;
+            }else{
 
-            Sleep(2000);
-//        }
+            }
+            Sleep(500);
+        }
 
     }
 
-    void generarGraph(ListaDoble<Cancion*>* lista){
-        cout << "Hola " <<endl;
+    void generarGraph(ListaDoble<Cancion*>* lista, int in){
+
         string graph = "digraph {\n"
                        "splines=\"line\";\n"
                        "rankdir = LR;\n"
@@ -59,21 +76,28 @@ public:
 
 
         if(lista->getSize()>0){
-            graph += "node0 [label=\""+lista->get_element_at(0)->getNombre()+"\", fillcolor=greenyellow, style=filled];\n";
-            cout << lista->get_element_at(0)->getNombre()<<endl;
+            graph += "node0 [label=\""+lista->get_element_at(0)->getNombre()+"\"]";
+            if(in==0){
+                graph+="[fillcolor=greenyellow, style=filled];\n";
+            }else{
+                graph+=";\n";
+            }
         }
 
         for(int j = 1; j<lista->getSize();j++){
             Cancion* cancion = lista->get_element_at(j);
-            graph += "node"+to_string(j)+" [label=\""+cancion->getNombre()+"\"];\n";
-            cout << cancion->getNombre()<<endl;
+            graph += "node"+to_string(j)+" [label=\""+cancion->getNombre()+"\"]";
+            if(in==j){
+                graph+="[fillcolor=greenyellow, style=filled];\n";
+            }else{
+                graph+=";\n";
+            }
         }
 
         for(int k = 0; k<lista->getSize()-1;k++){
-            cout<<lista->getSize();
             Cancion* cancion = lista->get_element_at(k);
-            graph += "node"+to_string(k)+" -> node"+to_string(k+1)+"\n";
-            cout << cancion->getNombre()<<endl;
+            graph += "node"+to_string(k)+" -> node"+to_string(k+1)+";\n";
+            graph += "node"+to_string(k+1)+" -> node"+to_string(k)+";\n";
         }
 
         ofstream myfile;
